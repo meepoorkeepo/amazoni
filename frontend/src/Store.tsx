@@ -1,0 +1,132 @@
+import React from "react"
+import type { Cart, CartItem, ShippingAdress} from "./types/Cart"
+import type { UserInfo } from "./types/UserInfo"
+type AppState = {
+    mode:string
+    cart:Cart
+    userInfo?:UserInfo
+}
+
+const initialState :AppState = {
+    userInfo:localStorage.getItem('userInfo')
+    ? JSON.parse(localStorage.getItem('userInfo')!)
+    :null,
+
+    mode: localStorage.getItem('mode')
+    ? localStorage.getItem('mode')!
+    :window.matchMedia && 
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+    ?'dark'
+    :'light', 
+
+    cart:{
+        itemPrice:0,
+        shippingAdress:localStorage.getItem('shippingAdress')
+        ? JSON.parse(localStorage.getItem('shippingAdress')!)
+        :{},
+        shippingPrice:0,
+        taxPrice:0,
+        totalPrice:0,
+        cartItems: localStorage.getItem('cartItems')
+        ? JSON.parse(localStorage.getItem('cartItems')!)
+        :[],
+        paymentMethod:localStorage.getItem('paymentMethod')
+        ? localStorage.getItem('paymentMethod')!
+        :'Paypal',
+    }
+}
+
+
+type Action = |{type:'SWITCH_MODE'} 
+              |{type:'CART_ADD_ITEM';payload:CartItem} 
+              |{type:'CART_REMOVE_ITEM';payload:CartItem}
+              |{type:'CART_CLEAR'}
+              |{type:'USER_SIGNIN';payload:UserInfo}
+              |{type:'USER_SIGNOUT'}
+              |{type:'SAVESHIPPING_ADRESS';payload:ShippingAdress}
+              |{type:'SAVE_PAYMENT_METHOD';payload:string}
+
+function reducer(state:AppState, action: Action):AppState{
+    switch(action.type){
+        case 'SWITCH_MODE':
+            localStorage.setItem('mode', state.mode==='dark' ? 'light' : 'dark')
+            return{...state,mode:state.mode==='dark' ? 'light' : 'dark'}
+        case 'CART_ADD_ITEM':{    
+        const newItem = action.payload
+        const existItem = state.cart.cartItems.find(
+            (item:CartItem) => item._id === newItem._id
+        )
+        const cartItems = existItem 
+        ? state.cart.cartItems.map((item:CartItem)=>
+        item._id === existItem._id ? newItem : item
+        ) : [...state.cart.cartItems, newItem] 
+        localStorage.setItem('cartItems',JSON.stringify(cartItems))
+        return{...state, cart:{...state.cart ,cartItems}}}
+        case 'CART_REMOVE_ITEM':{
+            const cartItems = state.cart.cartItems.filter(
+                (item:CartItem)=> item._id!==action.payload._id
+            )
+            localStorage.setItem('cartItems',JSON.stringify(cartItems))
+            return{...state,cart:{...state.cart,cartItems}}
+        }
+
+        case 'CART_CLEAR':
+            return {...state,cart:{...state.cart,cartItems:[]}}
+        case "USER_SIGNIN":
+            return{...state, userInfo:action.payload}
+
+        case 'USER_SIGNOUT':
+            return{
+                mode:
+                window.matchMedia &&
+                window.matchMedia('prefers-color-scheme: dark').matches ?'dark' : 'ligth',
+                cart:{
+                    cartItems:[],
+                    paymentMethod:'PayPal',
+                    shippingAdress:{
+                        fullName:'',
+                        adress:'',
+                        postalCode:'',
+                        city:'',
+                        country:'',
+                    },
+                    itemPrice:0,
+                    shippingPrice:0,
+                    taxPrice:0,
+                    totalPrice:0,
+                },
+            }   
+        case 'SAVESHIPPING_ADRESS':
+          return {
+            ...state,
+            cart:{
+                ...state.cart,
+                shippingAdress:action.payload,
+            }
+          }
+        case 'SAVE_PAYMENT_METHOD':
+           return{
+            ...state,
+            cart:{...state.cart,paymentMethod:action.payload}
+           }            
+    default:
+        return state
+    }
+}
+
+const defaultDispatch: React.Dispatch<Action> = () =>initialState
+
+const Store = React.createContext({
+    state:initialState,
+    dispatch:defaultDispatch,
+})
+
+function StoreProvider(props:React.PropsWithChildren<object>){
+    const [state,dispatch] = React.useReducer(
+        reducer,
+        initialState
+    )
+    return <Store.Provider value={{state,dispatch}} {...props}/>
+}
+
+export {Store,StoreProvider}
