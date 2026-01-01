@@ -61,7 +61,7 @@ class ShippingAdress {
         public paymentResult?: PaymentResult
 
         @prop ({required:true,default:0})
-        public itemPrice!:number
+        public itemsPrice!:number
         @prop ({required:true,default:0})
         public shippingPrice!:number
         @prop ({required:true,default:0})

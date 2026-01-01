@@ -12,9 +12,9 @@ orderRouter.get( //order in /api/orders/:id
     asyncHandler(async (req:Request,res:Response)=>{
         const order = await OrderModel.findById(req.params.id)
         if(order){
-            res.send(order)
+            res.json(order)
         }else{
-            res.status(404).send({message:'Order not Found'})
+            res.status(404).json({message:'Order not Found'})
         }
     })
 )
@@ -33,7 +33,7 @@ orderRouter.post(
                 })),
                 shippingAdress:req.body.shippingAdress,
                 paymentMethod:req.body.paymentMethod,
-                itemPrice:req.body.itemPrice,
+                itemsPrice:req.body.itemsPrice,
                 shippingPrice:req.body.shippingPrice,
                 taxPrice:req.body.taxPrice,
                 totalPrice:req.body.totalPrice,

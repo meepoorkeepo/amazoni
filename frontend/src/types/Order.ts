@@ -11,6 +11,7 @@ export type Order ={
     isPaid:boolean
     paidAt:string
     isDelivered:boolean
+    deliveredAt: string
     itemsPrice:number
     shippingPrice:number
     taxPrice:number
