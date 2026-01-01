@@ -1,7 +1,7 @@
 import express,{Request,Response} from 'express'
 import { isAuth } from '../utils'
 import asyncHandler from 'express-async-handler'
-import { OrderModel } from '../models/orderModel'
+import { Order, OrderModel } from '../models/orderModel'
 import { Product } from '../models/productModel'
 
 export const orderRouter = express.Router()
@@ -40,6 +40,30 @@ orderRouter.post(
                 user:req.user._id,
             })
             res.status(201).json({message:"OrderNotFound",order:createOrder})
+        }
+    })
+)
+
+orderRouter.put(
+    '/:id/pay',
+    isAuth,
+    asyncHandler(async(req:Request,res:Response)=>{
+        const order = await OrderModel.findById(req.params.id)
+        if (order) {
+            order.isPayed = true
+            order.paidAt = new Date(Date.now())
+            order.paymentResult = {
+                paymentId:req.body.id,
+                status:req.body.status,
+                update_time:req.body.update_time,
+                email_adress:req.body.email_adress,
+            }
+
+            const updateOrder = await order.save()
+
+            res.json({order:updateOrder,message:'order paid successfully'})            
+        }else{
+            res.status(404).json({message:'order not found'})
         }
     })
 )

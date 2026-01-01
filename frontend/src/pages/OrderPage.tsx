@@ -1,10 +1,13 @@
 import { Link, useParams } from "react-router-dom"
-import { useGetOrderDetailsQuery } from "../hooks/orderHooks"
+import { useGetOrderDetailsQuery, useGetPaypalClientIdQuery, usePayOrderMutation } from "../hooks/orderHooks"
 import LoadingBox from "../components/LoadingBox"
 import MessageBox from "../components/MessageBox"
 import { getError } from "../utils"
 import type { ApiError } from "../types/ApiError"
-import { Card, Col, ListGroup, Row } from "react-bootstrap"
+import { Button, Card, Col, ListGroup, Row } from "react-bootstrap"
+import { toast } from "react-toastify"
+import { PayPalButtons, SCRIPT_LOADING_STATE, usePayPalScriptReducer, type PayPalButtonsComponentProps } from "@paypal/react-paypal-js"
+import { useEffect } from "react"
 
 
 export default function OrderPage() {
@@ -13,9 +16,71 @@ export default function OrderPage() {
 
     const {
         data:order,
-        isPending,
         error,
+        refetch,
     } = useGetOrderDetailsQuery(orderId!)
+
+    const {mutateAsync:payOrder, isPending:loadingPay} = usePayOrderMutation()
+
+    const testPayHandler = async()=>{
+        await payOrder({orderId:orderId!})
+        refetch()
+        toast.success('order is paid')
+    }
+
+    const [{isPending},paypalDispatch] = usePayPalScriptReducer()
+
+    const {data:paypalConfig} = useGetPaypalClientIdQuery()
+
+    useEffect(()=>{
+    if(paypalConfig && paypalConfig.clientId){
+        const loadPaypalScript = async()=>{
+            paypalDispatch({
+                type: "resetOptions",
+                value:{
+                    'clientId':paypalConfig!.clientId,
+                    currency:'USD'
+                },
+            })
+            paypalDispatch({
+                type:'setLoadingStatus',
+                value:SCRIPT_LOADING_STATE.PENDING,
+            })
+        }
+        loadPaypalScript()
+    }
+    },[paypalConfig,paypalDispatch])
+    const paypalbuttonTransactionProps: PayPalButtonsComponentProps ={
+        style:{layout:'vertical'},
+        createOrder(data,actions){
+            return actions.order.create({
+              purchase_units:[
+                {
+                    amount:{
+                        value:order!.totalPrice.toString()
+                    },
+                },
+              ]  
+            }).then((orderID:string)=>{
+                return orderID
+            })
+        },
+        onApprove(data,actions){
+            return actions.order!.capture().then(async(details)=>{
+                try {
+                    await payOrder({orderId:orderId!,...details})
+                    refetch()
+                    toast.success(`Order is paid`)
+                } catch (err) {
+                    toast.error(getError(err as ApiError))
+                }
+            })
+        },
+        onError:(err)=>{
+            toast.error(getError (err as ApiError))
+        },
+    }
+
 
   return isPending ? (
     <LoadingBox></LoadingBox>
@@ -122,6 +187,21 @@ export default function OrderPage() {
                                 <Col>${order.totalPrice.toFixed(2)}</Col>
                             </Row>
                         </ListGroup.Item>
+                        {!order.isPaid && (
+                            <ListGroup.Item>
+                                {isPending? (
+                                    <MessageBox variant="danger">Error in connecting to paypal</MessageBox>
+                                ):(
+                                    <div>
+                                        <PayPalButtons
+                                        {...paypalbuttonTransactionProps}
+                                        ></PayPalButtons>
+                                        <Button onClick={testPayHandler}>test pay</Button>
+                                    </div>
+                                )}
+                                {loadingPay && <LoadingBox></LoadingBox>}
+                            </ListGroup.Item>
+                        )}
 
                     </ListGroup>
                 </Card.Body>

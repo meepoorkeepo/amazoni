@@ -22,6 +22,7 @@ import PaymentMethodPage from './pages/PaymentMethodPage.tsx'
 import ProtectedRoute from './components/ProtectedRoute.tsx'
 import PlaceOrderPage from './pages/PlaceOrderPage.tsx'
 import OrderPage from './pages/OrderPage.tsx'
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 
 
 const router = createBrowserRouter(
@@ -52,10 +53,13 @@ const queryClient = new QueryClient()
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <StoreProvider>
+      <PayPalScriptProvider options={{'client-id':'sb'}}
+      deferLoading={true}>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router}/>
         <ReactQueryDevtools initialIsOpen={false}/>
       </QueryClientProvider>
+      </PayPalScriptProvider>
     </StoreProvider>
   </StrictMode>,
 )

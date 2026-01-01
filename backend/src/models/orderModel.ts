@@ -1,7 +1,6 @@
 import {modelOptions, prop,getModelForClass, Ref} from '@typegoose/typegoose'
 import { Product } from './productModel'
 import { User } from './userModel'
-import { Date } from 'mongoose'
 
 class ShippingAdress {
     @prop()
@@ -71,11 +70,11 @@ class ShippingAdress {
         @prop ({required:true,default:false})
         public isPayed!:boolean
         @prop()
-        public paidAt!:Date
+        public paidAt?:Date
         @prop ({required:true,default:false})
         public isDelivered!:boolean
         @prop()
-        public deliveredAt!:Date
+        public deliveredAt?:Date
 
     }
 
