@@ -26,6 +26,7 @@ import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import OrderHistoryPage from './pages/OrderHistoryPage.tsx'
 
 
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element= {<App/>}>
@@ -42,11 +43,8 @@ const router = createBrowserRouter(
         <Route path='/order/:id' element={<OrderPage/>}/>
         <Route path='/orderhistory' element={<OrderHistoryPage/>}/>
       </Route>
-      
-      
-
     </Route>
-     
+         
   )
 )
 

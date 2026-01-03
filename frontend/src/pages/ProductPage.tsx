@@ -8,7 +8,7 @@ import { Col, Row,ListGroup,Card, Badge, Button } from "react-bootstrap";
 import Rating from "../components/Rating";
 import { useContext } from "react";
 import { Store } from "../Store";
-import {toast} from 'react-toastify'
+import toast from "react-hot-toast";
 
 export default function ProductPage() {
   const params = useParams()
@@ -27,7 +27,7 @@ export default function ProductPage() {
     const existItem = cart.cartItems.find((x)=>x._id === product?._id)
     const quantity = existItem ? existItem.quantity+1:1
     if (product!.countInStock<quantity) {
-      toast.warn('sorry the item is out of stock');
+      toast.error('sorry the item is out of stock');
       return
     }
     dispatch({

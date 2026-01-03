@@ -6,15 +6,12 @@ import { useContext } from "react"
 import { Store } from "../Store"
 import type { CartItem } from "../types/Cart"
 import { convertProductToCartItem } from "../utils"
-import {toast} from 'react-toastify'
+import toast from "react-hot-toast"
 
 function ProductItem({product}:{product:Product}) {
 
     const showToast = ()=>{
-      toast.success('product added to cart',{
-        toastId:'success-toast',
-        autoClose:2000,
-      })
+      toast.success('product added to cart')
     }
 
     const {state, dispatch} = useContext(Store)

@@ -2,9 +2,9 @@ import { useContext, useEffect } from "react"
 import { Container, Nav, Navbar, NavDropdown} from "react-bootstrap"
 import { Link, Outlet } from "react-router-dom"
 import { Store } from "./Store"
-import { ToastContainer } from "react-toastify"
 import {LinkContainer} from 'react-router-bootstrap'
-import 'react-toastify/dist/ReactToastify.css'
+import { Toaster } from "react-hot-toast"
+
 
 
 
@@ -31,7 +31,7 @@ function App() {
 
   return (
     <div className="d-flex flex-column">
-      <ToastContainer position="bottom-center"/>
+             <Toaster />
       <header>
         <Navbar
         className="d-flex flex-column align-items-stretch p-2 pb-0 mb-3"
@@ -115,7 +115,9 @@ function App() {
           All rigths reserved
         </div>
       </footer>
+       
     </div>
+   
   )
 }
 

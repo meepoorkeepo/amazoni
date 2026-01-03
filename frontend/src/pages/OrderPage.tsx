@@ -5,9 +5,9 @@ import MessageBox from "../components/MessageBox"
 import { getError } from "../utils"
 import type { ApiError } from "../types/ApiError"
 import { Button, Card, Col, ListGroup, Row } from "react-bootstrap"
-import { toast } from "react-toastify"
 import { DISPATCH_ACTION, PayPalButtons, SCRIPT_LOADING_STATE, usePayPalScriptReducer, type PayPalButtonsComponentProps } from "@paypal/react-paypal-js"
 import { useEffect } from "react"
+import toast from "react-hot-toast"
 
 
 export default function OrderPage() {

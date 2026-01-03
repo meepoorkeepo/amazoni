@@ -2,9 +2,9 @@ import { useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { Store } from "../Store"
 import type { CartItem } from "../types/Cart"
-import { toast } from "react-toastify"
 import MessageBox from "../components/MessageBox"
 import { Button, Card, Col, ListGroup, ListGroupItem, Row } from "react-bootstrap"
+import { toast } from "react-hot-toast"
 
 export default function CartPage() {
     const navigate = useNavigate()
@@ -19,7 +19,7 @@ export default function CartPage() {
 
      const updateCartHandler = (item:CartItem,quantity:number)=>{
         if (item.countInStock<quantity) {
-            toast.warn('Sorry the product is out of stock')
+            toast.error('Sorry the product is out of stock')
             return
         }
         dispatch({
