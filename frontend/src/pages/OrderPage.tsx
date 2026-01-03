@@ -6,7 +6,7 @@ import { getError } from "../utils"
 import type { ApiError } from "../types/ApiError"
 import { Button, Card, Col, ListGroup, Row } from "react-bootstrap"
 import { toast } from "react-toastify"
-import { PayPalButtons, SCRIPT_LOADING_STATE, usePayPalScriptReducer, type PayPalButtonsComponentProps } from "@paypal/react-paypal-js"
+import { DISPATCH_ACTION, PayPalButtons, SCRIPT_LOADING_STATE, usePayPalScriptReducer, type PayPalButtonsComponentProps } from "@paypal/react-paypal-js"
 import { useEffect } from "react"
 
 
@@ -36,14 +36,14 @@ export default function OrderPage() {
     if(paypalConfig && paypalConfig.clientId){
         const loadPaypalScript = async()=>{
             paypalDispatch({
-                type: "resetOptions",
+                type:DISPATCH_ACTION.RESET_OPTIONS,
                 value:{
                     'clientId':paypalConfig!.clientId,
                     currency:'USD'
                 },
             })
             paypalDispatch({
-                type:'setLoadingStatus',
+                type:DISPATCH_ACTION.LOADING_STATUS,
                 value:SCRIPT_LOADING_STATE.PENDING,
             })
         }
@@ -52,29 +52,29 @@ export default function OrderPage() {
     },[paypalConfig,paypalDispatch])
     const paypalbuttonTransactionProps: PayPalButtonsComponentProps ={
         style:{layout:'vertical'},
-        createOrder(data,actions){
-            return actions.order.create({
-              purchase_units:[
-                {
-                    amount:{
-                        value:order!.totalPrice.toString()
+        async createOrder(_data,actions){
+            const orderID = await actions.order.create({
+                intent: 'CAPTURE',
+                purchase_units: [
+                    {
+                        amount: {
+                            currency_code: 'USD',
+                            value: order!.totalPrice.toString()
+                        },
                     },
-                },
-              ]  
-            }).then((orderID:string)=>{
-                return orderID
+                ]
             })
+            return orderID
         },
-        onApprove(data,actions){
-            return actions.order!.capture().then(async(details)=>{
-                try {
-                    await payOrder({orderId:orderId!,...details})
-                    refetch()
-                    toast.success(`Order is paid`)
-                } catch (err) {
-                    toast.error(getError(err as ApiError))
-                }
-            })
+        async onApprove(_data,actions){
+            const details = await actions.order!.capture()
+            try {
+                await payOrder({ orderId: orderId!, ...details })
+                refetch()
+                toast.success(`Order is paid`)
+            } catch (err) {
+                toast.error(getError(err as ApiError))
+            }
         },
         onError:(err)=>{
             toast.error(getError (err as ApiError))

@@ -1,6 +1,6 @@
 import { ModelOptions,prop,getModelForClass } from "@typegoose/typegoose";
 
-ModelOptions({schemaOptions:{timestamps:true}})
+@ModelOptions({schemaOptions:{timestamps:true}})
 export class Product{
     
     public _id?:string
