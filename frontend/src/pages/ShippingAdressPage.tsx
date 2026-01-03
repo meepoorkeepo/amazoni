@@ -60,10 +60,10 @@ export default function ShippingAdressPage() {
     <div>
         <CheckoutSteps step1 step2></CheckoutSteps>
         <div className="container small-container">
-            <h1 className="my-3">Shipping Adress</h1>
+            <h1 className="my-3"> Adresse de livraison</h1>
             <Form onSubmit={submitHandler}>
                 <Form.Group className="mb-3" controlId="fullName">
-                    <Form.Label>Full Name</Form.Label>
+                    <Form.Label>Nom complet</Form.Label>
                     <Form.Control 
                     value={fullName}
                     onChange={(e)=> setFullname(e.target.value)}
@@ -90,7 +90,7 @@ export default function ShippingAdressPage() {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="postalCode">
-                    <Form.Label>Postal Code</Form.Label>
+                    <Form.Label>Code postal</Form.Label>
                     <Form.Control 
                     value={fullName}
                     onChange={(e)=> setPostalCode(e.target.value)}
@@ -99,7 +99,7 @@ export default function ShippingAdressPage() {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="country">
-                    <Form.Label>Country</Form.Label>
+                    <Form.Label>Pays</Form.Label>
                     <Form.Control 
                     value={fullName}
                     onChange={(e)=> setCountry(e.target.value)}
@@ -109,7 +109,7 @@ export default function ShippingAdressPage() {
 
                 <div className="mb-3">
                     <Button variant="primary" type="submit">
-                        Continue
+                        Continuer
                     </Button>
                 </div>
 

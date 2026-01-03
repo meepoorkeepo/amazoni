@@ -51,7 +51,7 @@ function ProductItem({product}:{product:Product}) {
               Out of stock
             </Button>
           ) : (
-            <Button onClick={()=> addToCartHandler(convertProductToCartItem(product))}>Add to cart</Button>
+            <Button onClick={()=> addToCartHandler(convertProductToCartItem(product))}>Ajouter au panier</Button>
           )}
         </Card.Body>
     </Card>

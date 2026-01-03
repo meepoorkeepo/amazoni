@@ -54,35 +54,35 @@ export default function PlaceOrderPage() {
   return (
     <div>
         <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
-        <h1 className="my-3">Preview Order</h1>
+        <h1 className="my-3">Aperçu de la commande</h1>
         <Row>
             <Col md={8}>
                 <Card className="mb-3">
                     <Card.Body>
-                        <Card.Title>Shipping</Card.Title>
+                        <Card.Title>Livraison</Card.Title>
                         <Card.Text>
-                            <strong>Name:</strong>{cart.shippingAdress.fullName}<br/>
+                            <strong>Nom :</strong>{cart.shippingAdress.fullName}<br/>
                             <strong>Adress:</strong>{cart.shippingAdress.adress},{cart.shippingAdress.city},{cart.shippingAdress.postalCode},{cart.shippingAdress.country}
 
                         </Card.Text>
-                        <Link to='/shipping'>Edit</Link>
+                        <Link to='/shipping'>Modifier</Link>
                     </Card.Body>
                 </Card>
 
                 <Card className="mb-3">
                     <Card.Body>
-                        <Card.Title>Payment</Card.Title>
+                        <Card.Title>Paiement</Card.Title>
                         <Card.Text>
-                            <strong>Method:</strong>{cart.paymentMethod}
+                            <strong>Méthode :</strong>{cart.paymentMethod}
 
                         </Card.Text>
-                        <Link to='/shipping'>Edit</Link>
+                        <Link to='/shipping'>Modifier</Link>
                     </Card.Body>
                 </Card>
 
                 <Card className="mb-3">
                     <Card.Body>
-                        <Card.Title>Items</Card.Title>
+                        <Card.Title>Articles</Card.Title>
                         <ListGroup variant="flush">
                             {cart.cartItems.map((item)=>(
                                 <ListGroup.Item key={item._id}>
@@ -103,7 +103,7 @@ export default function PlaceOrderPage() {
                                 </ListGroup.Item>
                             ))}
                         </ListGroup>
-                        <Link to='/cart'>Edit</Link>
+                        <Link to='/cart'>Modifier</Link>
                     </Card.Body>
                 </Card>
 
@@ -111,32 +111,32 @@ export default function PlaceOrderPage() {
             <Col md={4}>
             <Card>
                 <Card.Body>
-                    <Card.Title>Order Summary</Card.Title>
+                    <Card.Title>Récapitulatif de commande</Card.Title>
                     <ListGroup variant="flush">
                         <ListGroup.Item>
                             <Row>
-                                <Col>Items</Col>
+                                <Col>Articles</Col>
                                 <Col>${cart.itemsPrice.toFixed(2)}</Col>
                             </Row>
                         </ListGroup.Item>
 
                         <ListGroup.Item>
                             <Row>
-                                <Col>Shipping</Col>
+                                <Col>Livraison</Col>
                                 <Col>${cart.shippingPrice.toFixed(2)}</Col>
                             </Row>
                         </ListGroup.Item>
 
                         <ListGroup.Item>
                             <Row>
-                                <Col>Tax</Col>
+                                <Col>Taxe</Col>
                                 <Col>${cart.taxPrice.toFixed(2)}</Col>
                             </Row>
                         </ListGroup.Item>
 
                         <ListGroup.Item>
                             <Row>
-                                <Col>Order Total</Col>
+                                <Col>Total de la commande</Col>
                                 <Col>${cart.totalPrice.toFixed(2)}</Col>
                             </Row>
                         </ListGroup.Item>
@@ -147,7 +147,7 @@ export default function PlaceOrderPage() {
                                 onClick={PlaceOrderHandler}
                                 disabled={cart.cartItems.length === 0 || isPending}
                                 >
-                                    Place Order
+                                    Passer la commande
 
                                 </Button>
                                 {isPending && <LoadingBox></LoadingBox>}

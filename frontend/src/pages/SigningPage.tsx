@@ -43,10 +43,10 @@ export default function SigningPage() {
     },[navigate,redirect,userInfo])
   return (
     <Container className="small-container">
-        <h1 className="my-3">Sign In</h1>
+        <h1 className="my-3">Se connecter</h1>
         <Form onSubmit={submitHandler}>
             <Form.Group className="mb-3" controlId="email">
-                <Form.Label>Email</Form.Label>
+                <Form.Label>E-mail</Form.Label>
                 <Form.Control
                 type="email"
                 required
@@ -55,7 +55,7 @@ export default function SigningPage() {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="password">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>Mot de passe</Form.Label>
                 <Form.Control
                 type="password"
                 required
@@ -65,13 +65,13 @@ export default function SigningPage() {
             
             <div className="mb-3">
                 <Button disabled={isPending} type="submit">
-                    Sign In
+                    Se connecter
                 </Button>
                 {isPending && <LoadingBox/>}
             </div>
             <div className="mb-3">
-                New customer?{' '}
-                <Link to={`/signup?redirect=${redirect}`}>Create your account</Link>
+                Nouveau client?{' '}
+                <Link to={`/signup?redirect=${redirect}`}>Créez votre compte</Link>
 
             </div>
 

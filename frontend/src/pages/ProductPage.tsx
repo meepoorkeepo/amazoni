@@ -44,7 +44,7 @@ export default function ProductPage() {
       : error ?(
         <MessageBox variant="danger">{getError(error as unknown as ApiError)}</MessageBox>
       ): !product ?(
-      <MessageBox variant="danger">Product not found</MessageBox>
+      <MessageBox variant="danger">Produit non trouvé</MessageBox>
     ):
     (
     <div>
@@ -63,9 +63,9 @@ export default function ProductPage() {
           ></Rating>
         </ListGroup.Item>
         <ListGroup.Item>
-          Price : ${product.price}</ListGroup.Item>
+          Prix : €{product.price}</ListGroup.Item>
           <ListGroup.Item>
-            Description:
+            Description :
             <p>{product.description}</p> 
           </ListGroup.Item>
       </ListGroup>  
@@ -76,18 +76,18 @@ export default function ProductPage() {
           <ListGroup>
             <ListGroup.Item>
               <Row>
-                <Col>Price:</Col>
-                <Col>${product.price}</Col>
+                <Col>Prix</Col>
+                <Col>€{product.price}</Col>
               </Row>
             </ListGroup.Item>
             <ListGroup.Item>
               <Row>
-                <Col>Status:</Col>
+                <Col>Statu:</Col>
                  <Col>
                  {product.countInStock > 0 ?(
-                  <Badge bg="success">In Stock</Badge>
+                  <Badge bg="success">En stock</Badge>
                  ) :(
-                  <Badge bg="danger">Unavailable</Badge>
+                  <Badge bg="danger">Indisponible</Badge>
                  )}
                  </Col>   
               </Row>
@@ -95,7 +95,7 @@ export default function ProductPage() {
             {
               product.countInStock > 0 && (
                 <div className="d-grid">
-                  <Button onClick={addToCartHandler} variant="primary">Add to Cart</Button>
+                  <Button onClick={addToCartHandler} variant="primary">Ajouter au panier</Button>
                 </div>
               )
             }

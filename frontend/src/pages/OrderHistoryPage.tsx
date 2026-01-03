@@ -11,7 +11,7 @@ export default function OrderHistoryPage() {
     const {data:orders, isPending,error} = useGetOrderHistoryQuery()
   return (
    <div>
-    <h1>Order History</h1>
+    <h1>Historique des commandes</h1>
     {isPending ? (
         <LoadingBox></LoadingBox>
 
@@ -24,8 +24,8 @@ export default function OrderHistoryPage() {
                     <th>ID</th>
                     <th>DATE</th>
                     <th>TOTAL</th>
-                    <th>PAID</th>
-                    <th>DELIVERED</th>
+                    <th>PAYÉ</th>
+                    <th>LIVRÉ</th>
                     <th>ACTIONS</th>
                 </tr>
             </thead>
@@ -36,8 +36,8 @@ export default function OrderHistoryPage() {
                         <td>{order._id}</td>
                         <td>{order.createdAt.substring(0,10)}</td>
                         <td>{order.totalPrice.toFixed(2)}</td>
-                        <td>{order.isPaid ? order.paidAt.substring(0,10) :'No'}</td>
-                        <td>{order.isDelivered ? order.deliveredAt.substring(0,10) : 'No' }</td>
+                        <td>{order.isPaid ? order.paidAt.substring(0,10) :'Non'}</td>
+                        <td>{order.isDelivered ? order.deliveredAt.substring(0,10) : 'Non' }</td>
                         <td>
                             <Button
                             type='button'
@@ -46,7 +46,7 @@ export default function OrderHistoryPage() {
                                 navigate(`/order/${order._id}`)
                             }}
                             >
-                                Details
+                                Détails
                             </Button>
                         </td>
                     

@@ -36,13 +36,13 @@ export default function CartPage() {
 
   return (
     <div>
-        <title>Shopping Cart</title>
-        <h1>Shopping Cart</h1>
+        <title>Panier d'achat</title>
+        <h1>Panier d'achat</h1>
         <Row>
             <Col md={8}>
             {cartItems.length === 0 ? (
                 <MessageBox>
-                    Cart is empty. <Link to='/'>Go Shopping</Link>
+                    Le panier est vide. <Link to='/'>Continuer les achats</Link>
                 </MessageBox>
             ):(
                 <ListGroup>
@@ -89,7 +89,7 @@ export default function CartPage() {
                     <ListGroup variant="flush">
                         <ListGroup.Item>
                             <h3>
-                                subtotal({cartItems.reduce((a,c)=> a + c.quantity,0 )} {' '}items) : $ 
+                                sous-total({cartItems.reduce((a,c)=> a + c.quantity,0 )} {' '}articles) : €
                                 {cartItems.reduce((a,c)=> a+c.price * c.quantity,0)}
                             </h3>
                         </ListGroup.Item>
@@ -101,7 +101,7 @@ export default function CartPage() {
                                 onClick={checkoutHandler}
                                 disabled={cartItems.length ===0}
                                 >
-                                    Proceed to checkout
+                                    Passer à la caisse
                                 </Button>
                             </div>
                         </ListGroupItem>
