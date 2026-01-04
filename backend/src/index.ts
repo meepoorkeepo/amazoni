@@ -2,11 +2,13 @@ import express from "express";
 import cors from 'cors'
 import dotenv from 'dotenv'
 import mongoose from "mongoose";
+import path from 'path'
 import { productRouter } from "./routers/productRouter";
 import { seedRouter } from "./routers/seedRouter";
 import { userRouter } from "./routers/userRouter";
 import { orderRouter } from "./routers/orderRouter";
 import { keyRouter } from "./routers/keyRouter";
+import { Request,Response } from "express";
 
 dotenv.config()
 
@@ -39,8 +41,12 @@ app.use('/api/orders',orderRouter)
 app.use('/api/seed',seedRouter)
 app.use('/api/keys',keyRouter)
 
+app.use(express.static(path.join(__dirname, '../../frontend/dist')))
+app.get('*all',(req:Request,res:Response)=>
+res.sendFile(path.join(__dirname,'../../frontend/dist/index.html'))
+)
 
-const PORT= 4000
+const PORT:number = parseInt((process.env.PORT || '4000') as string,10)
 
 app.listen(PORT,()=>{
     console.log(`listening to port at http://localhost:${PORT}`);
