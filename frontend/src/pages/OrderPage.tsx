@@ -127,7 +127,7 @@ export default function OrderPage() {
             </Card>
             <Card className="mb-3">
                 <Card.Body>
-                    <Card.Title>Items</Card.Title>
+                    <Card.Title>Articles</Card.Title>
                     <ListGroup variant="flush">
                         {order.orderItems.map((item)=>(
                             <ListGroup.Item key={item._id}>

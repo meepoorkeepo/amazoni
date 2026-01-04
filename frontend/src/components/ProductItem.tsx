@@ -36,16 +36,16 @@ function ProductItem({product}:{product:Product}) {
     
 
   return (
-    <Card>
+    <Card className="mb-3">
         <Link to={`/product/${product.slug}`}>
-        <img src={product.image} className="card-img-top" alt={product.name} />
+        <img src={product.image} className="card-img-top" style={{ height: "250px", objectFit: "cover" }} alt={product.name} />
         </Link>
         <Card.Body>
           <Link to={`/product/${product.slug}`}>
           <Card.Title>{product.name}</Card.Title>
           </Link>
           <Rating rating={product.rating} numReviews={product.numReviews}/>
-          <Card.Text>${product.price}</Card.Text>
+          <Card.Text>€{product.price}</Card.Text>
           {product.countInStock ===0? (
             <Button variant="light" disabled>
               En rupture de stock

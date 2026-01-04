@@ -41,7 +41,7 @@ function App() {
         >
           <div className="d-flex justify-content-between align-items-center">
             <LinkContainer to='/' className="header-link">
-            <Navbar.Brand>Amazoni</Navbar.Brand>
+            <Navbar.Brand>Shopping</Navbar.Brand>
             </LinkContainer>
             <Navbar.Collapse>
               <Nav className="w-100 justify-content-end">
@@ -53,13 +53,13 @@ function App() {
                   <i
                   className={mode === 'light' ? 'fa fa-sun': 'fa fa-moon'}
                   ></i> {' '}
-                  {mode === 'light' ? 'Light' : 'Dark'}
+                  {mode === 'light' ? 'clair' : 'sombre'}
                 </Link>
 
                  {userInfo ? (
                   <NavDropdown
                   className="header-link"
-                  title={`Hello,${userInfo.name}`}
+                  title={`Bonjour,${' '} ${userInfo.name}`}
                   >
                     <LinkContainer to="/profile">
                     <NavDropdown.Item>Profil utilisateur</NavDropdown.Item>
@@ -111,7 +111,7 @@ function App() {
 
       </main>
       <footer>
-        <div className="text-center fixed-bottom">
+        <div className="text-center position-sticky p-3">
           Tous droits réservés
         </div>
       </footer>
