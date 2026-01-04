@@ -54,7 +54,7 @@ function App() {
   return (
     <div className="d-flex flex-column">
       <Toaster />
-      <header>
+      <header className="mb-5">
         <Navbar
           className="d-flex justify-content-between align-items-center p-2 pb-0 mb-3"
           bg="dark"
@@ -64,14 +64,14 @@ function App() {
           onToggle={(exp) => setExpanded(exp)}
           fixed="top"
         >
-          <div className="d-flex align-items-center">
+          <div className="d-flex mx-5 align-items-center">
             <LinkContainer to='/' className="header-link">
               <Navbar.Brand>Shopping</Navbar.Brand>
             </LinkContainer>
           </div>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="w-100 justify-content-end">
+            <Nav className="w-100 justify-content-end mx-5">
               <Link
                 to='#'
                 className="nav-link header-link"
@@ -148,8 +148,8 @@ function App() {
           </Navbar.Collapse>
         </Navbar>
       </header>
-      <main>
-        <Container className="mt-3">
+      <main className="mt-5">
+        <Container className="mt-5">
           <Outlet />
         </Container>
       </main>
