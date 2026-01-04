@@ -32,7 +32,7 @@ export default function SignupPage() {
     const submitHandler = async(e:React.SyntheticEvent)=>{
       e.preventDefault()
       if(password !== confirmPassword){
-        toast.error('passwords do not match')
+        toast.error('Les mots de passe ne correspondent pas')
         return
       }
       try {

@@ -81,7 +81,7 @@ export default function ShippingAdressPage() {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="City">
-                    <Form.Label>City</Form.Label>
+                    <Form.Label>Ville</Form.Label>
                     <Form.Control 
                     value={fullName}
                     onChange={(e)=> setCity(e.target.value)}

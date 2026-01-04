@@ -20,7 +20,7 @@ const initialState :AppState = {
     :'light', 
 
     cart:{
-        itemPrice:0,
+        itemsPrice:0,
         shippingAdress:localStorage.getItem('shippingAdress')
         ? JSON.parse(localStorage.getItem('shippingAdress')!)
         :{},
@@ -90,7 +90,7 @@ function reducer(state:AppState, action: Action):AppState{
                         city:'',
                         country:'',
                     },
-                    itemPrice:0,
+                    itemsPrice:0,
                     shippingPrice:0,
                     taxPrice:0,
                     totalPrice:0,

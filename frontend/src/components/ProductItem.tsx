@@ -11,7 +11,7 @@ import toast from "react-hot-toast"
 function ProductItem({product}:{product:Product}) {
 
     const showToast = ()=>{
-      toast.success('product added to cart')
+      toast.success('Produit ajouté au panier')
     }
 
     const {state, dispatch} = useContext(Store)
@@ -23,7 +23,7 @@ function ProductItem({product}:{product:Product}) {
       const existItem = cartItems.find((x)=>x._id === product._id)
       const quantity = existItem ? existItem.quantity + 1:1
       if (product.countInStock<quantity) {
-        alert('sorry, Product is out of stock')
+        toast.error('Désolé, le produit est en rupture de stock')
         return
       }
       dispatch({
@@ -48,7 +48,7 @@ function ProductItem({product}:{product:Product}) {
           <Card.Text>${product.price}</Card.Text>
           {product.countInStock ===0? (
             <Button variant="light" disabled>
-              Out of stock
+              En rupture de stock
             </Button>
           ) : (
             <Button onClick={()=> addToCartHandler(convertProductToCartItem(product))}>Ajouter au panier</Button>

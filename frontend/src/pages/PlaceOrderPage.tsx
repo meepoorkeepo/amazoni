@@ -116,28 +116,28 @@ export default function PlaceOrderPage() {
                         <ListGroup.Item>
                             <Row>
                                 <Col>Articles</Col>
-                                <Col>${cart.itemsPrice.toFixed(2)}</Col>
+                                <Col>€{cart.itemsPrice.toFixed(2)}</Col>
                             </Row>
                         </ListGroup.Item>
 
                         <ListGroup.Item>
                             <Row>
                                 <Col>Livraison</Col>
-                                <Col>${cart.shippingPrice.toFixed(2)}</Col>
+                                <Col>€{cart.shippingPrice.toFixed(2)}</Col>
                             </Row>
                         </ListGroup.Item>
 
                         <ListGroup.Item>
                             <Row>
                                 <Col>Taxe</Col>
-                                <Col>${cart.taxPrice.toFixed(2)}</Col>
+                                <Col>€{cart.taxPrice.toFixed(2)}</Col>
                             </Row>
                         </ListGroup.Item>
 
                         <ListGroup.Item>
                             <Row>
                                 <Col>Total de la commande</Col>
-                                <Col>${cart.totalPrice.toFixed(2)}</Col>
+                                <Col>€{cart.totalPrice.toFixed(2)}</Col>
                             </Row>
                         </ListGroup.Item>
                         <ListGroup.Item>

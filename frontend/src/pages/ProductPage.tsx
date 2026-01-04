@@ -27,14 +27,14 @@ export default function ProductPage() {
     const existItem = cart.cartItems.find((x)=>x._id === product?._id)
     const quantity = existItem ? existItem.quantity+1:1
     if (product!.countInStock<quantity) {
-      toast.error('sorry the item is out of stock');
+      toast.error('Désolé, le produit est en rupture de stock');
       return
     }
     dispatch({
       type:'CART_ADD_ITEM',
       payload:{...convertProductToCartItem(product!),quantity},
     })
-    toast.success('product added to cart')
+    toast.success('Produit ajouté au panier')
     navigate('/cart')
 
   }

@@ -11,10 +11,4 @@ export default function ProtectedRoute() {
         return <Outlet/>        
     }else{
         return <Navigate to="/signin"/>
-    }
-
-    
-  return (
-    <div>ProtectedRoute</div>
-  )
-}
+    }}

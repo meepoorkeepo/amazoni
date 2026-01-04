@@ -163,28 +163,28 @@ export default function OrderPage() {
                         <ListGroup.Item>
                             <Row>
                                 <Col>Articles</Col>
-                                <Col>${order.itemsPrice.toFixed(2)}</Col>
+                                <Col>€{order.itemsPrice.toFixed(2)}</Col>
                             </Row>
                         </ListGroup.Item>
 
                         <ListGroup.Item>
                             <Row>
                                 <Col>Livraison</Col>
-                                <Col>${order.shippingPrice.toFixed(2)}</Col>
+                                <Col>€{order.shippingPrice.toFixed(2)}</Col>
                             </Row>
                         </ListGroup.Item>
 
                         <ListGroup.Item>
                             <Row>
                                 <Col>Taxe</Col>
-                                <Col>${order.taxPrice.toFixed(2)}</Col>
+                                <Col>€{order.taxPrice.toFixed(2)}</Col>
                             </Row>
                         </ListGroup.Item>
 
                         <ListGroup.Item>
                             <Row>
                                 <Col>Total de la commande</Col>
-                                <Col>${order.totalPrice.toFixed(2)}</Col>
+                                <Col>€{order.totalPrice.toFixed(2)}</Col>
                             </Row>
                         </ListGroup.Item>
                         {!order.isPaid && (
