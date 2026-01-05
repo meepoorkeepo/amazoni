@@ -111,7 +111,7 @@ function App() {
                   </Link>
                 </NavDropdown>
               ) : (
-                <NavDropdown className="header-link" title={`Hello, sign in`}>
+                <NavDropdown className="header-link" title={`Bonjour, connectez-vous`}>
                   <LinkContainer to='/signin'>
                     <NavDropdown.Item onClick={closeMenu}>
                       Se connecter

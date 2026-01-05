@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { Store } from "../Store"
 import { useSignupMutation } from "../hooks/userHooks"
-import { toast } from "react-toastify"
+import toast  from "react-hot-toast"
 import { getError } from "../utils"
 import type { ApiError } from "../types/ApiError"
 import { Button, Container, Form } from "react-bootstrap"
@@ -78,7 +78,7 @@ export default function SignupPage() {
 
         <div className="mb-3">  
           Vous avez déjà un compte ?{' '}
-          <Link to={`signin?redirect=${redirect}`}>Connexion</Link>
+          <Link to={`/signin?redirect=${redirect}`}>Connexion</Link>
         </div>
       </Form>
 
